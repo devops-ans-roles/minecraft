@@ -4,7 +4,7 @@ minecraft:
   home: /home/minecraft
   server_folder: "/home/minecraft/server"
   download_url: https://piston-data.mojang.com/v1/objects/8dd1a28015f51b1803213892b50b7b4fc76e594d/server.jar
-  server_dest: "/home/minecraft/minecraft_server.jar"
+  server_dest: "/home/minecraft/server/minecraft_server.jar"
   xms: "1024M"
   xmx: "2048M"
 
