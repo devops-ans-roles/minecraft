@@ -31,6 +31,14 @@
     group: "{{ minecraft.user }}"
     mode: '0644'
 
+- name: Whitelist users
+  template:
+    src: whitelist.json.j2
+    dest: "{{ minecraft.server_folder }}/whitelist.json"
+    owner: "{{ minecraft.user }}"
+    group: "{{ minecraft.user }}"
+    mode: '0644'
+
 - name: Set up Minecraft server service
   template:
     src: minecraft.service.j2

@@ -18,3 +18,5 @@ minecraft:
   server_port: 25565
   online_mode: false
   whitelist: true
+
+  whitelisted_users: []
