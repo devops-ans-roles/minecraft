@@ -18,6 +18,7 @@
   ansible.builtin.lineinfile:
     path: "{{ minecraft.server_folder }}/eula.txt"
     line: "eula=true"
+    create: true
     owner: "{{ minecraft.user }}"
     group: "{{ minecraft.user }}"
     mode: '0644'
