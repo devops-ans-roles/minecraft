@@ -1,0 +1,17 @@
+[Unit]
+Description=Minecraft Server
+After=network.target
+
+[Service]
+User={{ minecraft.user }}
+Group={{ minecraft.group }}
+Nice=5
+KillMode=none
+SuccessExitStatus=0 1
+ProtectSystem=full
+WorkingDirectory={{ minecraft.server_folder }}
+ExecStart=/usr/bin/java -jar {{ minecraft.server_dest }} nogui -Xms{{ minecraft.xms }} -Xmx{{ minecraft.xmx }}
+ReadWriteDirectories={{ minecraft.server_folder }}
+
+[Install]
+WantedBy=multi-user.target

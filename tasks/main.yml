@@ -1,0 +1,37 @@
+---
+- name: Provision Minecraft Server
+  ansible.builtin.file:
+    path: "{{ minecraft.server_folder }}"
+    state: directory
+    owner: "{{ minecraft.user }}"
+    group: "{{ minecraft.user }}"
+    mode: '0755'
+
+- name: Download Minecraft Server
+  ansible.builtin.get_url:
+    url: "{{ minecraft.download_url }}"
+    dest: "{{ minecraft.server_dest }}"
+    owner: "{{ minecraft.user }}"
+    group: "{{ minecraft.user }}"
+
+- name: Accept the Minecraft EULA
+  ansible.builtin.lineinfile:
+    path: "{{ minecraft.server_folder }}/eula.txt"
+    line: "eula=true"
+    owner: "{{ minecraft.user }}"
+    group: "{{ minecraft.user }}"
+    mode: '0644'
+
+- name: Minecraft server.properties
+  template:
+    src: server.properties.j2
+    dest: "{{ minecraft.server_folder }}/server.properties"
+    owner: "{{ minecraft.user }}"
+    group: "{{ minecraft.user }}"
+    mode: '0644'
+
+- name: Set up Minecraft server service
+  template:
+    src: minecraft.service.j2
+    dest: "/etc/systemd/system/minecraft.service"
+  notify: restart minecraft
