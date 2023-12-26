@@ -19,4 +19,4 @@ minecraft:
   online_mode: false
   whitelist: true
 
-  whitelisted_users: []
+whitelisted_users: []
