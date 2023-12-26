@@ -10,7 +10,7 @@ KillMode=none
 SuccessExitStatus=0 1
 ProtectSystem=full
 WorkingDirectory={{ minecraft.server_folder }}
-ExecStart=/usr/bin/java -jar {{ minecraft.server_dest }} nogui -Xms{{ minecraft.xms }} -Xmx{{ minecraft.xmx }}
+ExecStart=/usr/bin/java -jar -Xms{{ minecraft.xms }} -Xmx{{ minecraft.xmx }} {{ minecraft.server_dest }} nogui
 ReadWriteDirectories={{ minecraft.server_folder }}
 
 [Install]
