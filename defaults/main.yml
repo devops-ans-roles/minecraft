@@ -1,5 +1,5 @@
 ---
-default_minecraft_config:
+minecraft:
   user: minecraft
   home: /home/minecraft
   server_folder: "/home/minecraft/server"
@@ -18,7 +18,5 @@ default_minecraft_config:
   server_port: 25565
   online_mode: false
   whitelist: true
-
-minecraft: "{{ default_minecraft_config }}"
 
 whitelisted_users: []
