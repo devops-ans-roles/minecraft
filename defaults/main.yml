@@ -21,3 +21,4 @@ minecraft:
   max_players: 20
 
 whitelisted_users: []
+ops_users: []
