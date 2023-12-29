@@ -24,3 +24,4 @@ minecraft: "{{ default_minecraft_config }}"
 
 whitelisted_users: []
 ops_users: []
+plugins: []

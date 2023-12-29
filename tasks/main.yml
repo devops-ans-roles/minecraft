@@ -47,6 +47,24 @@
     group: "{{ minecraft.user }}"
     mode: '0644'
 
+- name: Create plugins directory if it doesn't exist
+  file:
+    path: "{{ minecraft.server_folder }}/plugins"
+    state: directory
+    owner: "{{ minecraft.user }}"
+    group: "{{ minecraft.user }}"
+    mode: '0644'
+  when: "{{ plugins | lenght > 1 }}"
+
+- name: Download and install plugins
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ minecraft.server_folder }}/plugins/{{ item.name }}"
+    owner: "{{ minecraft.user }}"
+    group: "{{ minecraft.user }}"
+  loop: "{{ plugins }}"
+  when: "{{ plugins | lenght > 1 }}"
+
 - name: Set up Minecraft server service
   template:
     src: minecraft.service.j2
