@@ -54,7 +54,7 @@
     owner: "{{ minecraft.user }}"
     group: "{{ minecraft.user }}"
     mode: '0644'
-  when: "{{ plugins | lenght > 1 }}"
+  when: "{{ plugins | length > 1 }}"
 
 - name: Download and install plugins
   get_url:
@@ -63,7 +63,7 @@
     owner: "{{ minecraft.user }}"
     group: "{{ minecraft.user }}"
   loop: "{{ plugins }}"
-  when: "{{ plugins | lenght > 1 }}"
+  when: "{{ plugins | length > 1 }}"
 
 - name: Set up Minecraft server service
   template:
