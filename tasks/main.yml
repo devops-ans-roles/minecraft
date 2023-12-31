@@ -53,15 +53,16 @@
     state: directory
     owner: "{{ minecraft.user }}"
     group: "{{ minecraft.user }}"
-    mode: '0644'
+    mode: '0755'
   when: "{{ plugins | length > 1 }}"
 
 - name: Download and install plugins
   get_url:
     url: "{{ item.url }}"
-    dest: "{{ minecraft.server_folder }}/plugins/{{ item.name }}"
+    dest: "{{ minecraft.server_folder }}/plugins/{{ item.name }}.jar"
     owner: "{{ minecraft.user }}"
     group: "{{ minecraft.user }}"
+    mode: '0644'
   loop: "{{ plugins }}"
   when: "{{ plugins | length > 1 }}"
 
