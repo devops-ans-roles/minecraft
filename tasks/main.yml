@@ -33,7 +33,7 @@
 
 - name: Fetch Minecraft users UUIDs
   uri:
-    url: "https://api.mojang.com/users/profiles/minecraft/{{ item }}"
+    url: "https://api.mojang.com/users/profiles/minecraft/{{ item.name }}"
     method: GET
     return_content: true
     status_code: 200
@@ -43,7 +43,7 @@
 
 - name: Fetch Minecraft operators UUIDs
   uri:
-    url: "https://api.mojang.com/users/profiles/minecraft/{{ item }}"
+    url: "https://api.mojang.com/users/profiles/minecraft/{{ item.name }}"
     method: GET
     return_content: true
     status_code: 200
