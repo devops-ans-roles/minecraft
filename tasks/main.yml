@@ -37,7 +37,7 @@
     method: GET
     return_content: true
     status_code: 200
-  register: uuid_response
+  register: uuid_response_users
   loop: "{{ minecraft_users }}"
   ignore_errors: true
 
@@ -47,20 +47,20 @@
     method: GET
     return_content: true
     status_code: 200
-  register: uuid_response
+  register: uuid_response_ops
   loop: "{{ minecraft_ops }}"
   ignore_errors: true
 
 - name: Fill in whitelist with users' data
   set_fact:
-    whitelisted_users: "{{ whitelisted_users + [{'name': item.item, 'uuid': item.json.id }] }}"
-  loop: "{{ uuid_response.results }}"
+    whitelisted_users: "{{ whitelisted_users + [{'name': item.item.name, 'uuid': item.json.id }] }}"
+  loop: "{{ uuid_response_users.results }}"
   when: item.status == 200
 
 - name: Fill in ops list with users' data
   set_fact:
-    ops_users: "{{ ops_users + [{'name': item.item, 'uuid': item.json.id }] }}"
-  loop: "{{ uuid_response.results }}"
+    ops_users: "{{ ops_users + [{'name': item.item.name, 'uuid': item.json.id }] }}"
+  loop: "{{ uuid_response_ops.results }}"
   when: item.status == 200
 
 - name: Whitelist users
@@ -70,6 +70,7 @@
     owner: "{{ minecraft.user }}"
     group: "{{ minecraft.user }}"
     mode: '0644'
+  when: whitelisted_users | length > 1
 
 - name: Ops users
   template:
@@ -78,6 +79,7 @@
     owner: "{{ minecraft.user }}"
     group: "{{ minecraft.user }}"
     mode: '0644'
+  when: ops_users | length > 1
 
 - name: Create plugins directory if it doesn't exist
   file:
