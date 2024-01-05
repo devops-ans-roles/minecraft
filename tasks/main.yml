@@ -40,6 +40,7 @@
   register: uuid_response_users
   loop: "{{ minecraft_users }}"
   ignore_errors: true
+  when: minecraft_users | length > 1
 
 - name: Fetch Minecraft operators UUIDs
   uri:
@@ -50,6 +51,7 @@
   register: uuid_response_ops
   loop: "{{ minecraft_ops }}"
   ignore_errors: true
+  when: minecraft_ops | length > 1
 
 - name: Fill in whitelist with users' data
   set_fact:
