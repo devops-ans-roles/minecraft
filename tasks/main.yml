@@ -31,40 +31,6 @@
     group: "{{ minecraft.user }}"
     mode: '0644'
 
-- name: Fetch Minecraft users UUIDs
-  uri:
-    url: "https://api.mojang.com/users/profiles/minecraft/{{ item.name }}"
-    method: GET
-    return_content: true
-    status_code: 200
-  register: uuid_response_users
-  loop: "{{ minecraft_users }}"
-  ignore_errors: true
-  when: minecraft_users | length > 1
-
-- name: Fetch Minecraft operators UUIDs
-  uri:
-    url: "https://api.mojang.com/users/profiles/minecraft/{{ item.name }}"
-    method: GET
-    return_content: true
-    status_code: 200
-  register: uuid_response_ops
-  loop: "{{ minecraft_ops }}"
-  ignore_errors: true
-  when: minecraft_ops | length > 1
-
-- name: Fill in whitelist with users' data
-  set_fact:
-    whitelisted_users: "{{ whitelisted_users + [{'name': item.item.name, 'uuid': item.json.id }] }}"
-  loop: "{{ uuid_response_users.results }}"
-  when: item.status == 200
-
-- name: Fill in ops list with users' data
-  set_fact:
-    ops_users: "{{ ops_users + [{'name': item.item.name, 'uuid': item.json.id }] }}"
-  loop: "{{ uuid_response_ops.results }}"
-  when: item.status == 200
-
 - name: Whitelist users
   template:
     src: whitelist.json.j2
