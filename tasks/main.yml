@@ -38,7 +38,7 @@
     owner: "{{ minecraft.user }}"
     group: "{{ minecraft.user }}"
     mode: '0644'
-  when: whitelisted_users | length > 1
+  when: whitelisted_users | length > 0
 
 - name: Ops users
   template:
@@ -47,6 +47,7 @@
     owner: "{{ minecraft.user }}"
     group: "{{ minecraft.user }}"
     mode: '0644'
+  when: ops_users | length > 0
 
 - name: Create plugins directory if it doesn't exist
   file:
@@ -55,7 +56,7 @@
     owner: "{{ minecraft.user }}"
     group: "{{ minecraft.user }}"
     mode: '0755'
-  when: plugins | length > 1
+  when: plugins | length > 0
 
 - name: Download and install plugins
   get_url:
@@ -65,7 +66,7 @@
     group: "{{ minecraft.user }}"
     mode: '0644'
   loop: "{{ plugins }}"
-  when: plugins | length > 1
+  when: plugins | length > 0
 
 - name: Set up Minecraft server service
   template:
